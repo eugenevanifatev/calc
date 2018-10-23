@@ -1,0 +1,117 @@
+ class Program
+    {
+
+        static void Main(string[] args)
+        {
+            Menu menu = new Menu();
+            menu.menu();
+            Console.ReadKey();
+        }
+
+    }
+
+    public class Menu:Student
+    {
+       
+        public void menu()
+        { 
+            Console.WriteLine("\tМеню" +
+                "\n1.Новый студент" +
+                "\n2.Данные студента" +
+                "\n3.Редактировать данные студента" +
+                "\n4.Выход");
+            int a = Convert.ToInt32(Console.ReadLine());
+            switch (a)
+            {
+                case 1: CreateStudent(); menu(); break;
+                case 2: if (CheckStudent() == false) menu(); ChoiceStudent(); ShowStudent(); menu(); break;
+                case 3: if (CheckStudent() == false) menu(); ChoiceStudent(); EditStudent();  menu(); break;
+                case 4: Environment.Exit(0); break;
+            }
+        }
+    }
+    public class Student
+    {
+        bool bol;
+        int a = 0;
+        string name;
+        string surname;
+        int age;
+        int group;
+        int count = 0;
+        public Student[] student = new Student[10];
+        void Name () {Console.WriteLine("Введите имя");
+            name = Convert.ToString(Console.ReadLine());
+        }
+        void Surname()
+        {
+            Console.WriteLine("Введите фамилию");
+            surname = Convert.ToString(Console.ReadLine());
+        }
+        void Age() {
+            Console.WriteLine("Введите возраст");
+            age = Convert.ToInt32(Console.ReadLine());
+        }
+        void Group() {
+            Console.WriteLine("Введите группу");
+            group = Convert.ToInt32(Console.ReadLine());
+        }
+        public void CreateStudent()
+        {
+            Console.Clear();
+            student[count] = new Student();
+            student[count].Name();
+            student[count].Surname();
+            student[count].Age();
+            student[count].Group();
+            count++;
+            Console.Clear();
+        }
+
+
+        public void ChoiceStudent()
+        {
+            Console.Clear();
+            for (int i = 1; i <= count; i++)
+            {
+                Console.WriteLine("Студент " + i);
+            }
+            Console.WriteLine("Выберите студента");
+            a = Convert.ToInt32(Console.ReadLine());
+            a--;
+        }
+        public void ShowStudent()
+        {
+            Console.WriteLine("Имя : " + student[a].name);
+            Console.WriteLine("Фамилия : " + student[a].surname);
+            Console.WriteLine("Возраст : " + student[a].age);
+            Console.WriteLine("Группа : " + student[a].group);
+            Console.ReadKey();
+            Console.Clear();
+        }
+        public bool CheckStudent()
+        {
+            bol = true;
+            if (student[0] == null) { Console.Clear(); bol = false; Console.WriteLine("Список студентов пуст"); Console.ReadKey(); Console.Clear(); }
+            return bol;
+        }
+        public void EditStudent ()
+        {
+            Console.WriteLine("Выберите что вы хотите отредактировать :");
+            Console.WriteLine(
+                "1.Имя" +
+                "\n2.Фамилия" +
+                "\n3.Возраст" +
+                "\n4.Группа");
+            int choice = Convert.ToInt32(Console.ReadLine());
+            switch (choice)
+            {
+                case 1: Console.WriteLine("Текущее Имя : " + student[a].name); student[a].Name();break;
+                case 2: Console.WriteLine("Текущая Фамилия : " + student[a].surname); student[a].Surname(); break;
+                case 3: Console.WriteLine("Текущий Возраст : " + student[a].age); student[a].Age(); break;
+                case 4: Console.WriteLine("Текущая Группа : " + student[a].group); student[a].Group(); break;
+            }
+            ShowStudent();
+            Console.ReadKey();
+            Console.Clear();
+        }
